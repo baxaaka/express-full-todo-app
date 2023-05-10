@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "text": "user1",
+        "isDelete": false
+    },
+    {
+        "id": 2,
+        "text": "oka",
+        "isDelete": true
+    },
+    {
+        "id": 3,
+        "text": "user3",
+        "isDelete": true
+    },
+    {
+        "id": 4,
+        "text": "lkj",
+        "isDelete": false
+    },
+    {
+        "id": 5,
+        "text": "sa",
+        "isDelete": false
+    },
+    {
+        "id": 6,
+        "text": "nnnn",
+        "isDelete": false
+    },
+    {
+        "id": 7,
+        "text": "11",
+        "isDelete": false
+    },
+    {
+        "id": 8,
+        "text": "lll",
+        "isDelete": false
+    }
+]

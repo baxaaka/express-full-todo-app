@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo app</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <!-- icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins";
+    }
+    body {
+      background: #e0e0e0;
+    }
+    .section {
+      width: 100%;
+      height: 100vh;
+      background: #e0e0e0;
+      /* background-color: #0f0f0f; */
+    }
+    .box {
+      /* width: 800px;
+      background-color: red;
+      height: 300px;
+      display: block;
+      margin: 0 auto;
+
+      border-radius: 30px;
+      background: #e0e0e0;
+      box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff; */
+    }
+    .inp {
+      width: 450px;
+      height: 40px;
+      /* background-color: rebeccapurple; */
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      top: 50px;
+    }
+    input {
+      text-align: center;
+      width: 400px;
+      height: 40px;
+      border-radius: 10px;
+      background: #e8e8e8;
+      /* box-shadow: 20px 20px 60px #c5c5c5, -20px -20px 60px #ffffff; */
+
+      border: 1px solid #e8e8e8;
+      outline-color: #e8e8e8;
+      box-shadow: inset 20px 20px 60px #c5c5c5, inset -20px -20px 60px #ffffff;
+    }
+
+    input:focus {
+      background: #e8e8e8;
+      box-shadow: inset 20px 20px 60px #c5c5c5, inset -20px -20px 60px #ffffff;
+      transition: 0.3s;
+    }
+    button {
+      width: 45px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid #e8e8e8;
+      outline-color: #e8e8e8;
+      box-shadow: inset 20px 20px 60px #c5c5c5, inset -20px -20px 60px #ffffff;
+    }
+
+    .cards {
+      /* background-color: red; */
+      width: 450px;
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      top: 100px;
+    }
+
+    .card {
+      width: 450px;
+      height: 40px;
+      border-radius: 5px;
+      background: #e0e0e0;
+      margin-top: 30px;
+      box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+      text-align: center;
+      display: flex;
+      column-gap: 30px;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .card p {
+      /* position: relative;
+      top: 10px; */
+    }
+    .btt {
+      display: flex;
+      column-gap: 15px;
+      /* background-color: red; */
+    }
+    .delete {
+      /* background-color: aqua; */
+    }
+  </style>
+  <body>
+    <main>
+      <div class="section">
+        <div class="box">
+          <div class="inp">
+            <form action="" method="post">
+              <input type="text" name="text" />
+
+              <button type="">add</button>
+            </form>
+          </div>
+
+          <div class="cards"></div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script>
+    const form = document.querySelector("form");
+    const cards = document.querySelector(".cards");
+
+    form.addEventListener("submit", (e) => {
+      // e.preventDefault()
+    });
+
+    async function api() {
+      const req = await fetch("http://localhost:5000/todoo", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const res = await req.json();
+      const all = res;
+      allCard(all);
+    }
+
+    api();
+
+    function allCard(res = []) {
+
+      res.forEach((el) => {
+        
+        const cr = document.createElement("div");
+
+        cr.classList.add("card");
+
+        cr.innerHTML = `
+        <h3>${el.id}</h3>
+        <p>${el.text} </p>
+        <div class="btt">
+  <div class="edit">
+    <span class="material-symbols-outlined"> edit </span>
+  </div>
+  
+  <div class="delete">
+    <span class="material-symbols-outlined" id="del"> delete </span>
+  </div>
+</div>
+
+ `;
+
+        cards.appendChild(cr);
+
+        cr.addEventListener("click", (e) => {
+          fetch(`http://localhost:5000/todo/${el.id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            // body: JSON.stringify({
+            //   // name: 'text'
+            // }),
+          });
+          cr.style.backgroundColor="red"
+        });
+      });
+    }
+
+  </script>
+</html>
